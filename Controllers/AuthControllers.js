@@ -4,14 +4,15 @@ const User = require('../Model/User')
 
 //user Login
 const login = async (req, res) => {
-  const { username, password } = req.body
+  const { id, username, password } = req.body
   if (!username || !password)
     return res.status(400).send('username and password are required')
 
   const foundUser = await User.findOne({ username }).exec()
-  if (!foundUser) return res.status(401).send('Unauthorized')
+  if (!foundUser) return res.status(401).send('duplicate username')
 
   const match = await bcrypt.compare(password, foundUser.password)
+
   if (!match) return res.status(401).json({ message: 'Unauthorized' })
   if (match) {
     const accesstoken = jwt.sign(
@@ -33,8 +34,10 @@ const login = async (req, res) => {
     res.cookie('jwt', refreshtoken, {
       httpOnly: true,
       maxAge: 24 * 60 * 60 * 1000,
+      sameSite: true,
+      secure: true,
     }) //secure:true,sameSite:none
-    res.json({ accesstoken })
+    res.status(201).json({ accesstoken })
   }
 }
 

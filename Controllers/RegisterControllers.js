@@ -1,13 +1,59 @@
 const StudentRegisteration = require('../Model/Register')
 
-const getAllStudents = (req, res) => {
-  const students = StudentRegisteration.find().lean()
+const getAllStudents = async (req, res) => {
+  const students = await StudentRegisteration.find().lean().exec()
   if (!students.length) return res.status(400).send('No User Found')
   res.status(201).json(students)
 }
 
 const createNewStudent = async (req, res) => {
   const {
+    id,
+    photo,
+    firstname,
+    Surname,
+    Date_Of_Birth,
+    Place_Of_Birth,
+    Gender,
+    Year_In_Which_Admission_Is_Sought,
+    Ghanaian_Language_Spoken,
+    Region,
+    Nationality,
+    Home_Town,
+    Religion_And_Denomination,
+    Mother_Tongue,
+    Name_Of_School,
+    // Admittion_details,
+    // Last_Attendance_Date,
+    // How_Did_You_Hear_About_Trinity_Christian_Mission_School,
+    // What_Are_Your_Reasons_For_Leaving_Your_Previous_School,
+  } = req.body
+
+  if (
+    !photo ||
+    !firstname ||
+    !Surname ||
+    !Date_Of_Birth ||
+    !Place_Of_Birth ||
+    !Gender ||
+    !Year_In_Which_Admission_Is_Sought ||
+    !Ghanaian_Language_Spoken ||
+    !Region ||
+    !Nationality ||
+    !Home_Town ||
+    !Religion_And_Denomination ||
+    !Mother_Tongue ||
+    !Name_Of_School
+    // !Admittion_details ||
+    // !Last_Attendance_Date ||
+    // !How_Did_You_Hear_About_Trinity_Christian_Mission_School ||
+    // !What_Are_Your_Reasons_For_Leaving_Your_Previous_School
+  )
+    return res.json({ message: 'error' })
+  const duplicate = await StudentRegisteration.findById(id).exec()
+  if (duplicate) return res.status(409).send('Student already exist')
+
+  const newStudent = {
     photo,
     firstname,
     Surname,
@@ -22,146 +68,15 @@ const createNewStudent = async (req, res) => {
     Region,
     Year_In_Which_Admission_Is_Sought,
     Name_Of_School,
-    Admittion_Details,
-    Last_Attendance_Date,
-    How_Did_You_Hear_About_Trinity_Christian_Mission_School,
-    What_Are_Your_Reasons_For_Leaving_Your_Previous_School,
-    Both_Parents,
-    Mother,
-    Father,
-    Other_Person,
-    Guardian,
-    Older_Children,
-    Younger_Children,
-    Details_Of_Persons_Relationship_To_The_Child_Living_with,
-    FFirstname,
-    Fsurname,
-    FOccupation,
-    FNationality,
-    FEducation_level,
-    FReligion,
-    FName_And_Address_Of_Place_Of_Work,
-    FHome_Adress,
-    FOffice,
-    FMobile,
-    FEmail_Address,
-    FNumber_Of_Wifes,
-    FIf_Deceased_State_Date_Of_Death,
-    Smallpox,
-    Diptheria,
-    Whooping_Cou,
-    Teta,
-    Measles,
-    Polio,
-    Tuberculosis,
-    Futher_Details_About_the_Childs_Health,
-    In_Case_Of_Sudden_Illness_At_School_Please_State_What_Should_Be_Done,
-    MFirstname,
-    Msurname,
-    MOccupation,
-    MNationality,
-    MEducation_level,
-    MReligion,
-    MName_And_Address_Of_Place_Of_Work,
-    MHome_Adress,
-    MOffice,
-    MMobile,
-    MEmail_Address,
-    MIf_Deceased_State_Date_Of_Death,
-    GFirstname,
-    Gsurname,
-    GOccupation,
-    GNationality,
-    GEducation_level,
-    GReligion,
-    GName_And_Address_Of_Place_Of_Work,
-    GHome_Adress,
-    GOffice,
-    GMobile,
-    GEmail_Address,
-    GNumber_Of_Wifes,
-  } = req.body
+    // Admittion_details: Previouse_School_Attended.Admittion_details,
+    // Last_Attendance_Date: Previouse_School_Attended.Last_Attendance_Date,
+    // How_Did_You_Hear_About_Trinity_Christian_Mission_School:
+    //   Previouse_School_Attended.How_Did_You_Hear_About_Trinity_Christian_Mission_School,
+    // What_Are_Your_Reasons_For_Leaving_Your_Previous_School:
+    //   Previouse_School_Attended.What_Are_Your_Reasons_For_Leaving_Your_Previous_School,
+  }
 
-  if (
-    !photo ||
-    !firstname ||
-    !Surname ||
-    !Gender ||
-    !Date_Of_Birth ||
-    !Place_Of_Birth ||
-    !Mother_Tongue ||
-    !Religion_And_Denomination ||
-    !Ghanaian_Language_Spoken ||
-    !Home_Town ||
-    !Nationality ||
-    !Region ||
-    !Year_In_Which_Admission_Is_Sought ||
-    !Name_Of_School ||
-    !Admittion_Details ||
-    !Last_Attendance_Date ||
-    !How_Did_You_Hear_About_Trinity_Christian_Mission_School ||
-    !What_Are_Your_Reasons_For_Leaving_Your_Previous_School ||
-    !Both_Parents ||
-    !Mother ||
-    !Father ||
-    !Other_Person ||
-    !Guardian ||
-    !Older_Children ||
-    !Younger_Children ||
-    !Details_Of_Persons_Relationship_To_The_Child_Living_with ||
-    !FFirstname ||
-    !Fsurname ||
-    !FOccupation ||
-    !FNationality ||
-    !FEducation_level ||
-    !FReligion ||
-    !FName_And_Address_Of_Place_Of_Work ||
-    !FHome_Adress ||
-    !FOffice ||
-    !FMobile ||
-    !FEmail_Address ||
-    !FNumber_Of_Wifes ||
-    !FIf_Deceased_State_Date_Of_Death ||
-    !Smallpox ||
-    !Diptheria ||
-    !Whooping_Cou ||
-    !Teta ||
-    !Measles ||
-    !Polio ||
-    !Tuberculosis ||
-    !Futher_Details_About_the_Childs_Health ||
-    !In_Case_Of_Sudden_Illness_At_School_Please_State_What_Should_Be_Done ||
-    !MFirstname ||
-    !Msurname ||
-    !MOccupation ||
-    !MNationality ||
-    !MEducation_level ||
-    !MReligion ||
-    !MName_And_Address_Of_Place_Of_Work ||
-    !MHome_Adress ||
-    !MOffice ||
-    !MMobile ||
-    !MEmail_Address ||
-    !MIf_Deceased_State_Date_Of_Death ||
-    !GFirstname ||
-    !Gsurname ||
-    !GOccupation ||
-    !GNationality ||
-    !GEducation_level ||
-    !GReligion ||
-    !GName_And_Address_Of_Place_Of_Work ||
-    !GHome_Adress ||
-    !GOffice ||
-    !GMobile ||
-    !GEmail_Address ||
-    !GNumber_Of_Wifes
-  )
-    return res.status(404).json({ message: 'All Fields Are Required' })
-
-  const duplicate = await StudentRegisteration.findById(id).exec()
-  if (duplicate) return res.status(409).send('Student already exist')
-
-  await StudentRegisteration.save()
+  await StudentRegisteration.create(newStudent)
   res.status(201).json({ message: 'Student Registered successfully!' })
 }
 
@@ -270,24 +185,13 @@ const UpdateStudent = async (req, res) => {
 }
 
 const deleteStudent = async (req, res) => {
-  const Student = StudentRegisteration.findById(id).exec()
-
-  if (!Student) return res.status(404).send('no student with this ID')
-
-  const foundStudent = await Student.findOne({ lastname })
-    .collation({ locale: 'en', strength: 2 })
-    .lean()
-    .exec()
-  if (!foundStudent || foundStudent._id !== id)
-    return res.status(403).send('duplicate user')
-
-  const result = await StudentRegisteration.deleteOne()
-
+  const { id } = req.body
+  const deletedStudent = await StudentRegisteration.findById(id).exec()
+  if (!deletedStudent) return res.send('check your id please')
+  await deletedStudent.deleteOne()
   res
     .status(200)
-    .json(
-      `Student ${result.firstname} ${result.surname} was deleted sucessfully`
-    )
+    .json(`Student  ${deletedStudent.firstname} was deleted sucessfully`)
 }
 
 module.exports = {

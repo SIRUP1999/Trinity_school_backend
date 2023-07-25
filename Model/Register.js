@@ -2,84 +2,78 @@ const mongoose = require('mongoose')
 
 const StudentRegisteration = new mongoose.Schema(
   {
-    Details_Of_pupil: {
-      photo: {
-        type: String,
-        required: true,
-      },
-      firstname: {
-        type: String,
-        required: true,
-      },
-      Surname: {
-        type: String,
-        required: true,
-      },
-      Gender: [
-        {
-          type: String,
-          required: true,
-        },
-      ],
-      Date_Of_Birth: {
-        type: Date,
-        required: true,
-      },
-      Place_Of_Birth: {
-        type: String,
-        required: true,
-      },
-      Mother_Tongue: String,
-      Religion_And_Denomination: String,
-      Ghanaian_Language_Spoken: String,
-      Home_Town: String,
-      Nationality: String,
-      Region: String,
-      Year_In_Which_Admission_Is_Sought: Number,
+    photo: {
+      type: String,
+      required: true,
+    },
+    firstname: {
+      type: String,
+      // required: true,
+    },
+    Surname: {
+      type: String,
+      // required: true,
+    },
+    Gender: {
+      type: String,
+      // required: true,
     },
 
-    Previouse_School_Attended: {
-      Name_Of_School: String,
-      Admittion_details: String,
-      Last_Attendance_Date: String,
-      How_Did_You_Hear_About_Trinity_Christian_Mission_School: String,
-      What_Are_Your_Reasons_For_Leaving_Your_Previous_School: String,
+    Date_Of_Birth: {
+      type: String,
+      // required: true,
     },
+    Place_Of_Birth: {
+      type: String,
+      // required: true,
+    },
+    Mother_Tongue: String,
+    Religion_And_Denomination: String,
+    Ghanaian_Language_Spoken: String,
+    Home_Town: String,
+    Nationality: String,
+    Region: String,
+    Year_In_Which_Admission_Is_Sought: Number,
 
-    Other_Significant_Data: {
-      Child_Lives_With: {
-        Both_Parents: Boolean,
-        Mother: Boolean,
-        Father: Boolean,
-        Other_Person: Boolean,
-        Guardian: Boolean,
-      },
-      number_Of_Other_Children_Living_In_The_House: {
-        Older_Children: Number,
-        Younger_Children: Number,
-      },
-      Details_Of_Persons_Relationship_To_The_Child_Living_with: String,
+    Name_Of_School: String,
+    Admittion_details: String,
+    Last_Attendance_Date: String,
+    How_Did_You_Hear_About_Trinity_Christian_Mission_School: String,
+    What_Are_Your_Reasons_For_Leaving_Your_Previous_School: String,
+
+    Child_Lives_With: {
+      Both_Parents: Boolean,
+      Mother: Boolean,
+      Father: Boolean,
+      Other_Person: Boolean,
+      Guardian: Boolean,
     },
-    Deatails_Of_Father: {
+    number_Of_Other_Children_Living_In_The_House: {
+      Older_Children: Number,
+      Younger_Children: Number,
+    },
+    Details_Of_Persons_Relationship_To_The_Child_Living_with: String,
+
+    Details_Of_Father: {
       Firstname: {
         type: String,
-        required: true,
+        // required: true,
       },
       surname: {
         type: String,
-        required: true,
+        // required: true,
       },
       Occupation: {
         type: String,
-        required: true,
+        // required: true,
       },
       Nationality: {
         type: String,
-        required: true,
+        // required: true,
       },
       Education_level: {
         type: String,
-        required: true,
+        // required: true,
       },
 
       Religion: String,
@@ -107,26 +101,26 @@ const StudentRegisteration = new mongoose.Schema(
         String,
     },
 
-    Deatils_Of_Mother: {
+    Details_Of_Mother: {
       Firstname: {
         type: String,
-        required: true,
+        // required: true,
       },
       surname: {
         type: String,
-        required: true,
+        // required: true,
       },
       Occupation: {
         type: String,
-        required: true,
+        // required: true,
       },
       Nationality: {
         type: String,
-        required: true,
+        // required: true,
       },
       Education_level: {
         type: String,
-        required: true,
+        // required: true,
       },
 
       Religion: String,
@@ -139,26 +133,26 @@ const StudentRegisteration = new mongoose.Schema(
       Email_Address: String,
       If_Deceased_State_Date_Of_Death: Date,
     },
-    Deatails_Of_Guardian: {
+    Details_Of_Guardian: {
       Firstname: {
         type: String,
-        required: true,
+        // required: true,
       },
       surname: {
         type: String,
-        required: true,
+        // required: true,
       },
       Occupation: {
         type: String,
-        required: true,
+        // required: true,
       },
       Nationality: {
         type: String,
-        required: true,
+        // required: true,
       },
       Education_level: {
         type: String,
-        required: true,
+        // required: true,
       },
 
       Religion: String,
